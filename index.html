@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#01040c"><meta name="robots" content="noindex,nofollow"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Smart Money Whale">
+<title>Smart Money Whale</title><style>
+html,body{margin:0;height:100%;background:#01040c;color:#cfefff;font-family:ui-monospace,Menlo,Consolas,monospace;overflow:hidden}
+#bg{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,#0a3a5c 0%,#03122a 45%,#01040c 100%)}
+#bg:before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(100deg,transparent 0 40px,rgba(0,229,255,.05) 40px 70px);animation:ray 14s linear infinite;filter:blur(8px)}
+@keyframes ray{to{transform:translateX(140px)}}.b{position:fixed;bottom:-20px;border-radius:50%;border:1px solid rgba(0,229,255,.5);animation:up linear infinite}@keyframes up{to{transform:translateY(-110vh);opacity:0}}
+#card{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(88vw,360px);padding:28px 24px;border-radius:18px;background:rgba(2,16,34,.7);border:1px solid rgba(0,229,255,.45);box-shadow:0 0 40px rgba(0,229,255,.25),inset 0 0 30px rgba(139,92,255,.12);backdrop-filter:blur(10px);text-align:center}
+#card img{width:84px;height:84px;border-radius:20px;box-shadow:0 0 24px #00e5ff88}h1{font-size:18px;letter-spacing:.32em;margin:14px 0 2px;color:#e8fbff;text-shadow:0 0 12px #00e5ff}
+p{margin:0 0 18px;font-size:10px;letter-spacing:.3em;color:#7fb6d6}input[type=password]{width:100%;box-sizing:border-box;padding:13px;border-radius:10px;border:1px solid #1b5c86;background:#020b18;color:#e8fbff;font:inherit;font-size:16px;outline:none}
+input[type=password]:focus{border-color:#00e5ff;box-shadow:0 0 12px #00e5ff66}button{margin-top:12px;width:100%;padding:13px;border:0;border-radius:10px;font:700 13px ui-monospace,monospace;letter-spacing:.25em;color:#01040c;background:linear-gradient(90deg,#00e5ff,#8b5cff);box-shadow:0 0 18px #00e5ff88;cursor:pointer}
+label{display:block;margin-top:12px;font-size:11px;color:#7fb6d6}#err{min-height:16px;margin-top:10px;font-size:11px;color:#ff3b5c}
+#app{position:fixed;inset:0;width:100%;height:100%;border:0;display:none}</style></head><body>
+<div id="bg"></div><form id="card" autocomplete="on"><img src="icon-180.png" alt=""><h1>SMART MONEY WHALE</h1><p>PRIVATE TRADING DECK</p>
+<input type="text" name="username" value="whale" autocomplete="username" hidden><input id="pw" type="password" placeholder="Access key" autocomplete="current-password" autofocus>
+<button>DIVE IN</button><label><input type="checkbox" id="rem"> Remember this device</label><div id="err"></div></form><iframe id="app" title="Smart Money Whale"></iframe>
+<script>(function(){var S='tuz6PehsO1NJSEoqCIfETg==',I=600000,K=null,PV=null,LV=null,T=null,st=null;
+try{st=window.localStorage}catch(e){}
+for(var i=0;i<14;i++){var b=document.createElement('div');b.className='b';var s=4+Math.random()*14;b.style.cssText='left:'+Math.random()*100+'vw;width:'+s+'px;height:'+s+'px;animation-duration:'+(6+Math.random()*10)+'s;animation-delay:-'+Math.random()*10+'s';document.body.appendChild(b)}
+function ub(s){var r=atob(s),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+function dec(t){var a=ub(t.trim());return crypto.subtle.decrypt({name:'AES-GCM',iv:a.slice(0,12)},K,a.slice(12)).then(function(b){return new TextDecoder().decode(b)})}
+function get(f){return fetch(f+'?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()})}
+function badge(h){try{var d=document.getElementById('app').contentDocument,el=d&&d.getElementById('smwscan');if(!el||!h)return;var age=(Date.now()-Date.parse(h.ts))/60000,ok=age<5&&h.status=='ok',c=ok?'#00ffa3':(age<15?'#ffd23f':'#ff3b5c');el.style.borderColor=c;el.innerHTML='<i style="background:'+c+';box-shadow:0 0 8px '+c+'"></i>SCANNER 24/7 · '+(ok?'LIVE':'STALE')+' · '+h.n+' coins · '+h.a+' alerts · STOCKS '+(h.stk||'off').toUpperCase()+' · PM '+((h.pm=='ok')?'LIVE':(h.pm||'off')).toUpperCase()+' · beat '+new Date(h.ts).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}catch(e){}}
+var last=0;['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,function(){last=Date.now()},true)});
+function show(){return get('payload.enc').then(dec).then(function(h){var f=document.getElementById('app');f.srcdoc=h;f.style.display='block';document.getElementById('card').style.display='none';
+ f.onload=function(){try{['pointerdown','keydown','touchstart'].forEach(function(e){f.contentWindow.addEventListener(e,function(){last=Date.now()},true)})}catch(e){};badge(LV)}})}
+function poll(){get('live.enc').then(dec).then(function(t){var L=JSON.parse(t);LV=L.hb;badge(L.hb);if(PV&&L.ver!==PV){if(Date.now()-last>20000&&!document.hidden){PV=L.ver;show()}}else PV=L.ver}).catch(function(){})}
+function start(){return poll(),show().then(function(){if(!T)T=setInterval(poll,60000);document.addEventListener('visibilitychange',function(){if(!document.hidden)poll()})})}
+function derive(pw){return crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){return crypto.subtle.deriveKey({name:'PBKDF2',salt:ub(S),iterations:I,hash:'SHA-256'},k,{name:'AES-GCM',length:256},true,['decrypt'])})}
+function fail(m){document.getElementById('err').textContent=m;K=null}
+document.getElementById('card').onsubmit=function(e){e.preventDefault();document.getElementById('err').textContent='Decrypting…';
+ derive(document.getElementById('pw').value).then(function(k){K=k;return start().then(function(){if(document.getElementById('rem').checked&&st)crypto.subtle.exportKey('raw',k).then(function(r){st.setItem('smw_k',btoa(String.fromCharCode.apply(null,new Uint8Array(r)))+'|'+S)})})}).catch(function(){fail('Wrong access key')})};
+var sv=st&&st.getItem('smw_k');if(sv&&sv.split('|')[1]===S)crypto.subtle.importKey('raw',ub(sv.split('|')[0]),'AES-GCM',false,['decrypt']).then(function(k){K=k;return start()}).catch(function(){try{st.removeItem('smw_k')}catch(e){};fail('')});
+})()</script></body></html>
